@@ -936,6 +936,13 @@ smtpd_recipient_restrictions =
 <% end -%>
 
 <% end -%>
+<% if !@smtpd_relay_restrictions.empty? -%>
+smtpd_relay_restrictions =
+<% @smtpd_relay_restrictions.each do |line| -%>
+  <%= line %>,
+<% end -%>
+
+<% end -%>
 <% if !@smtpd_data_restrictions.empty? -%>
 smtpd_data_restrictions =
 <% @smtpd_data_restrictions.each do |line| -%>

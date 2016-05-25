@@ -55,6 +55,7 @@ class postfix::server (
   $smtpd_helo_restrictions = [],
   $smtpd_sender_restrictions = [],
   $smtpd_recipient_restrictions = [],
+  $smtpd_relay_restrictions = [],
   $smtpd_data_restrictions = [],
   $smtpd_end_of_data_restrictions = [],
   $smtpd_delay_reject = false,
