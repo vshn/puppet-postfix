@@ -47,7 +47,7 @@ class postfix::params {
       $sample_directory = '/usr/share/doc/postfix/examples'
       $service_restart = '/usr/sbin/service postfix reload'
       $dovecot_directory = '/usr/lib/dovecot'
-      $postfix_package = 'postfix'
+      $postfix_package = 'postfix-pcre'
       $postfix_mysql_package = 'postfix-mysql'
       $postfix_package_ensure = installed
       $postgrey_package = 'postgrey'
