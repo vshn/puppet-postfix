@@ -193,15 +193,23 @@ class postfix::server (
     restart   => $service_restart,
   }
 
-  file { "${config_directory}/master.cf":
-    content => template("postfix/master.cf${filesuffix}.erb"),
+  concat { "${config_directory}/master.cf":
     notify  => Service['postfix'],
     require => Package[$package_name],
   }
-  file { "${config_directory}/main.cf":
-    content => template("postfix/main.cf${filesuffix}.erb"),
+  concat::fragment { "master.cf-head":
+    content => template("postfix/master.cf${filesuffix}.erb"),
+    target  => "${config_directory}/master.cf",
+    order   => '10_',
+  }
+  concat { "${config_directory}/main.cf":
     notify  => Service['postfix'],
     require => Package[$package_name],
+  }
+  concat::fragment {"main.cf":
+    content => template("postfix/main.cf${filesuffix}.erb"),
+    target  => "${config_directory}/main.cf",
+    order   => '10_',
   }
 
   # Optional Spamassassin setup (using spampd)
