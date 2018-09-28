@@ -38,6 +38,7 @@ class postfix::params {
       $command_directory = '/usr/sbin'
       $config_directory = '/etc/postfix'
       $daemon_directory = $::lsbdistcodename ? {
+        'bionic' => '/usr/lib/postfix/sbin',
         'xenial' => '/usr/lib/postfix/sbin',
         default  => '/usr/lib/postfix',
       }
