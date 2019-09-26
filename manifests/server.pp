@@ -99,6 +99,7 @@ class postfix::server (
   $smtp_content_filter = [],
   $smtps_content_filter = [],
   $submission = false,
+  $submission_command_args = [],
   # EL5
   $submission_smtpd_enforce_tls = 'yes',
   # EL6
