@@ -18,6 +18,9 @@ submission inet n       -       n       -       -       smtpd
   -o smtpd_enforce_tls=<%= @submission_smtpd_enforce_tls %>
   -o smtpd_sasl_auth_enable=<%= @submission_smtpd_sasl_auth_enable %>
   -o smtpd_client_restrictions=<%= @submission_smtpd_client_restrictions %>
+<% @submission_command_args.each do |submission_command_arg| -%>
+  -o <%= submission_command_arg %>
+<% end -%>
 <% end -%>
 <% if @ssl -%>
 smtps     inet  n       -       n       -       -       smtpd
