@@ -159,6 +159,8 @@ class postfix::server (
   $postfix_mysql_package  = $::postfix::params::postfix_mysql_package,
   $postfix_package_ensure = $::postfix::params::postfix_package_ensure,
   $postgrey_package       = $::postfix::params::postgrey_package,
+  $service_enable         = $::postfix::params::service_enable,
+  $service_ensure         = $::postfix::params::service_ensure,
   $service_restart        = $::postfix::params::service_restart,
   $spamassassin_package   = $::postfix::params::spamassassin_package,
   $spampd_package         = $::postfix::params::spampd_package,
@@ -188,8 +190,8 @@ class postfix::server (
 
   service { 'postfix':
     require   => Package[$package_name],
-    enable    => true,
-    ensure    => running,
+    enable    => $service_enable,
+    ensure    => $service_ensure,
     hasstatus => true,
     restart   => $service_restart,
   }
