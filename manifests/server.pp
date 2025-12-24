@@ -174,7 +174,7 @@ class postfix::server (
 
   # Default has el5 files, for el6 a few defaults have changed
   # FIXME : el6 template works for el7, but a new one would be prettier
-  if ( $::operatingsystem =~ /RedHat|CentOS/ and versioncmp($::operatingsystemrelease, '6') < 0 ) {
+  if ( $facts['os']['name'] =~ /RedHat|CentOS/ and versioncmp($facts['os']['release']['full'], '6') < 0 ) {
     $filesuffix = '-el5'
   } else {
     $filesuffix = ''
