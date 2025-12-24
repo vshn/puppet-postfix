@@ -1,9 +1,9 @@
 # Class: postfix::params
 #
 class postfix::params {
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
-      $postfix_version = $::operatingsystemmajrelease ? {
+      $postfix_version = $facter['os']['release']['major'] ? {
         #'7'     => '2.10.1',
         '6'     => '2.6.6',
         '5'     => '2.3.3',
@@ -92,7 +92,7 @@ class postfix::params {
       $postmap = '/usr/local/sbin/postmap'
     }
     default: {
-      fail("Unsupported OS family ${::osfamily}")
+      fail("Unsupported OS family ${facts['os']['family']}")
     }
   }
 }
