@@ -3,7 +3,7 @@
 class postfix::params {
   case $facts['os']['family'] {
     'RedHat': {
-      $postfix_version = $facter['os']['release']['major'] ? {
+      $postfix_version = $facts['os']['release']['major'] ? {
         #'7'     => '2.10.1',
         '6'     => '2.6.6',
         '5'     => '2.3.3',

@@ -11,7 +11,7 @@ class postfix::server (
   # To install postfix-mysql package instead of plain postfix (EL5)
   $mysql = false,
   # See the main.cf comments for help on these options
-  $myhostname = $::fqdn,
+  $myhostname = $facts['networking']['fqdn'],
   $mydomain = false,
   $myorigin = '$myhostname',
   $inet_interfaces = 'localhost',
@@ -189,9 +189,9 @@ class postfix::server (
   package { $package_name: ensure => $postfix_package_ensure, alias => 'postfix' }
 
   service { 'postfix':
-    require   => Package[$package_name],
-    enable    => $service_enable,
     ensure    => $service_ensure,
+    enable    => $service_enable,
+    require   => Package[$package_name],
     hasstatus => true,
     restart   => $service_restart,
   }
@@ -200,7 +200,7 @@ class postfix::server (
     notify  => Service['postfix'],
     require => Package[$package_name],
   }
-  concat::fragment { "master.cf-head":
+  concat::fragment { 'master.cf-head':
     content => template("postfix/master.cf${filesuffix}.erb"),
     target  => "${config_directory}/master.cf",
     order   => '10_',
@@ -209,7 +209,7 @@ class postfix::server (
     notify  => Service['postfix'],
     require => Package[$package_name],
   }
-  concat::fragment {"main.cf":
+  concat::fragment {'main.cf':
     content => template("postfix/main.cf${filesuffix}.erb"),
     target  => "${config_directory}/main.cf",
     order   => '10_',
@@ -221,9 +221,9 @@ class postfix::server (
     package { [ $spamassassin_package, $spampd_package ]: ensure => installed }
     # Note that we don't want the normal spamassassin (spamd) service
     service { 'spampd':
-      require   => Package[$spampd_package],
-      enable    => true,
       ensure    => running,
+      enable    => true,
+      require   => Package[$spampd_package],
       hasstatus => true,
     }
     # Override the options passed to spampd
@@ -244,9 +244,9 @@ class postfix::server (
     # Main package and service it provides
     package { $postgrey_package: ensure => installed }
     service { 'postgrey':
-      require   => Package[$postgrey_package],
-      enable    => true,
       ensure    => running,
+      enable    => true,
+      require   => Package[$postgrey_package],
       # When stopped, status returns zero with 1.31-1.el5
       hasstatus => false,
     }
